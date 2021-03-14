@@ -11,8 +11,16 @@ type Details = {
   descriptionImages: ImageInfo[];
 };
 
-type DataProcessItem = {
-  variant: 'augmentation' | 'preprocess';
+type Augmentation = {
+  variant: 'augmentation';
   name: string;
   details: Details;
 };
+
+type Preprocess = {
+  variant: 'preprocess';
+  name: string;
+  details: Details;
+};
+
+type DataProcessItem = Augmentation | Preprocess;

@@ -2,29 +2,76 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 
+import { useUI } from '@components/ui/context';
 import { Button, Modal } from '@components/ui';
 import UploadDataModal from '@components/modals/UploadData';
 
-import { Duplicate, Scissors, Upload } from '@components/icons';
+import {
+  Duplicate,
+  Scissors,
+  Upload,
+  ChevronDoubleRight,
+  Plus,
+} from '@components/icons';
 
-import augmentations from '@data/augmentation.json';
-import preprocesses from '@data/preprocess.json';
-import ChevronDoubleRight from '@components/icons/ChevronDoubleRight';
+import augmentationList from '@data/augmentation.json';
+import preprocessList from '@data/preprocess.json';
+import { Canvas } from '@components/custom';
 
 const DataPage = () => {
   const router = useRouter();
+  const {
+    dataset,
+    setDataset,
+    augmentations,
+    addAugmentation,
+    preprocesses,
+    addPreprocess,
+    saveLearningProcess,
+    restoreLearningProcess,
+  } = useUI();
   const [modalFlags, setModalFlags] = React.useState<{
     upload: boolean;
     success: boolean;
+    alert: boolean;
   }>({
     upload: false,
     success: false,
+    alert: false,
   });
+  const [alertInfo, setAlertInfo] = React.useState<{
+    title: string;
+    content: string;
+  }>({ title: '', content: '' });
   const [selected, setSelected] = React.useState<DataProcessItem | null>(null);
-  const [dataset, setDataset] = React.useState<string | null>(null);
   const [loading, setLoading] = React.useState<{ save: boolean }>({
     save: false,
   });
+
+  React.useEffect(() => {
+    restoreLearningProcess();
+  }, [restoreLearningProcess]);
+
+  const clearTimeouts = React.useCallback(() => {
+    if (typeof window !== 'undefined') {
+      let id = window.setTimeout(() => {}, 0);
+      while (id--) window.clearTimeout(id);
+    }
+  }, []);
+
+  const openAlert = React.useCallback(
+    (title: string, content: string) => {
+      clearTimeouts();
+      setAlertInfo({ title, content });
+      setModalFlags((prev) => ({ ...prev, alert: true }));
+    },
+    [clearTimeouts],
+  );
+
+  const closeAlert = React.useCallback(() => {
+    setModalFlags((prev) => ({ ...prev, alert: false }));
+    setTimeout(() => setAlertInfo({ title: '', content: '' }), 2000);
+  }, []);
 
   return (
     <>
@@ -32,13 +79,13 @@ const DataPage = () => {
         {/* list area */}
         <div className="bg-gray-50 w-60 border-r border-gray-200 grid grid-rows-2">
           {/* augmentation */}
-          <div className="py-2 px-3 overflow-y-auto overscroll-contain">
+          <div className="py-2 px-3 flex flex-col">
             <div className="flex space-x-2 items-center mt-4">
               <Duplicate className="w-8 h-8" />
               <h2 className="text-xl font-semibold">Augmentation</h2>
             </div>
-            <ul className="space-y-1 mt-4">
-              {augmentations.map((augmentation, idx) => (
+            <ul className="space-y-1 mt-4 flex-grow overflow-y-auto overscroll-contain">
+              {augmentationList.map((augmentation, idx) => (
                 <li key={`augmentation-${idx}`}>
                   <button
                     className={cn('w-full text-left py-2 px-2.5 rounded-md', {
@@ -58,13 +105,13 @@ const DataPage = () => {
             </ul>
           </div>
           {/* preprocess */}
-          <div className="border-t border-gray-300 py-2 px-3 overflow-y-auto overscroll-contain">
+          <div className="border-t border-gray-300 py-2 px-3 flex flex-col">
             <div className="flex space-x-2 items-center mt-4">
               <Scissors className="w-8 h-8" />
               <h2 className="text-xl font-semibold">Preprocess</h2>
             </div>
-            <ul className="space-y-1 mt-4">
-              {preprocesses.map((preprocess, idx) => (
+            <ul className="space-y-1 mt-4 flex-grow overflow-y-auto overscroll-contain">
+              {preprocessList.map((preprocess, idx) => (
                 <li key={`preprocess-${idx}`}>
                   <button
                     className={cn('w-full text-left py-2 px-2.5 rounded-md', {
@@ -87,9 +134,18 @@ const DataPage = () => {
         {/* canvas area */}
         <div className="flex-grow grid grid-rows-2">
           {/* canvas 1 */}
-          <div></div>
+          <Canvas
+            variant="augmentation"
+            augmentations={augmentations}
+            dataset={dataset}
+          />
           {/* canvas 2 */}
-          <div className="border-t border-gray-300"></div>
+          <Canvas
+            className="border-t border-gray-300"
+            variant="preprocess"
+            dataset={dataset}
+            preprocesses={preprocesses}
+          />
         </div>
         {/* right section */}
         <div className="w-96 border-l border-gray-300 flex flex-col">
@@ -108,14 +164,14 @@ const DataPage = () => {
             {dataset === null ? (
               <p className="mt-3">Choose dataset first.</p>
             ) : (
-              <div className="mt-3 self-stretch flex justify-between">
+              <div className="mt-4 self-stretch flex justify-between">
                 <span>Selected Dataset:</span>
                 <span>{dataset}</span>
               </div>
             )}
           </div>
           {/* divider */}
-          <div className="relative mt-2">
+          <div className="relative">
             <div
               className="absolute inset-0 flex items-center"
               aria-hidden="true"
@@ -150,6 +206,39 @@ const DataPage = () => {
               </div>
             )}
           </div>
+          {selected !== null && (
+            <Button
+              size="lg"
+              className="space-x-2 self-center ml-4 mb-2"
+              onClick={() => {
+                if (selected.variant === 'augmentation') {
+                  if (augmentations.length === 5) {
+                    return openAlert(
+                      'Exceeding the maximum limit (5)',
+                      'Please remove one or more augmentations if you really want to add this.',
+                    );
+                  }
+                  addAugmentation(selected);
+
+                  return setSelected(null);
+                }
+
+                if (preprocesses.length === 3) {
+                  return openAlert(
+                    'Exceeding the maximum limit (3)',
+                    'Please remove one or more preprocesss if you really want to add this.',
+                  );
+                }
+
+                addPreprocess(selected);
+
+                return setSelected(null);
+              }}
+            >
+              <Plus className="w-6 h-6" />
+              <span className="pr-2">INSERT</span>
+            </Button>
+          )}
           {/* divider */}
           <div className="relative mt-2">
             <div
@@ -163,15 +252,12 @@ const DataPage = () => {
             <Button
               className="w-full justify-center text-xl font-semibold space-x-4"
               size="xl"
-              disabled={loading.save}
+              disabled={dataset === null || loading.save}
               onClick={() => {
+                if (dataset === null)
+                  return setModalFlags((prev) => ({ ...prev, alert: true }));
                 setLoading((prev) => ({ ...prev, save: true }));
-                sessionStorage.setItem(
-                  '@data',
-                  JSON.stringify({
-                    dataset,
-                  }),
-                );
+                saveLearningProcess();
                 setTimeout(
                   () => setModalFlags((prev) => ({ ...prev, success: true })),
                   1000,
@@ -202,6 +288,17 @@ const DataPage = () => {
         actionButton={{
           label: 'Go to Select Models',
           onClick: () => router.push('/model'),
+        }}
+      />
+      <Modal
+        variant="alert"
+        show={modalFlags.alert}
+        close={() => closeAlert()}
+        title={alertInfo.title}
+        content={alertInfo.content}
+        actionButton={{
+          label: 'OK',
+          onClick: () => closeAlert(),
         }}
       />
     </>
