@@ -205,7 +205,7 @@ const DataPage = () => {
               </div>
             )}
           </div>
-          {selected !== null && (
+          {selected !== null && dataset !== null && (
             <Button
               size="lg"
               className="space-x-2 self-center ml-4 mb-2"
