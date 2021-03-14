@@ -75,10 +75,10 @@ const Canvas: React.FC<Props> = ({ className, ...props }) => {
         </div>
       </div>
       <span
-        className="absolute top-1/2 transform -translate-y-1/2"
+        className="absolute top-1/2 transform -translate-y-1/2 -translate-x-1.5"
         style={{ left: blockWidth / 2 }}
       >
-        <Play className="w-6 h-6 -ml-2 mt-1" />
+        <Play className="w-6 h-6 mt-1 text-gray-500" />
       </span>
 
       {/* data array */}
@@ -121,13 +121,13 @@ const Canvas: React.FC<Props> = ({ className, ...props }) => {
             className="absolute top-1/2 transform -translate-y-1/2 -translate-x-4"
             style={{ left: (1.5 + 2 * idx) * blockWidth }}
           >
-            <Play className="w-6 h-6 mt-1" />
+            <Play className="w-6 h-6 mt-1 text-gray-500" />
           </span>
           <span
             className="absolute top-1/2 transform -translate-y-1/2 -translate-x-1.5"
             style={{ left: (2.5 + 2 * idx) * blockWidth }}
           >
-            <Play className="w-6 h-6 mt-1" />
+            <Play className="w-6 h-6 mt-1 text-gray-500" />
           </span>
         </>
       ))}
@@ -137,7 +137,7 @@ const Canvas: React.FC<Props> = ({ className, ...props }) => {
         className="absolute top-1/2 transform -translate-y-1/2 translate-x-1.5"
         style={{ right: blockWidth / 2 }}
       >
-        <Play className="w-6 h-6 mt-1" />
+        <Play className="w-6 h-6 mt-1 text-gray-500" />
       </span>
       <div
         className={cn(
