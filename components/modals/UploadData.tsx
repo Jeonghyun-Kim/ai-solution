@@ -3,6 +3,7 @@ import cn from 'classnames';
 import { Transition } from '@headlessui/react';
 import ScrollLock from 'react-scrolllock';
 
+import { useUI } from '@components/ui/context';
 import { Button, Dropdown } from '@components/ui';
 
 import customDatasetList from '@data/customDatasetList.json';
@@ -33,14 +34,13 @@ const UploadDataModal: React.FC<Props> = ({
   close,
   ...props
 }) => {
+  const { dataset, setDataset } = useUI();
   const [currentSort, setCurrentSort] = React.useState<SelectItem>(
     uploadSorts[0],
   );
-  const [selected, setSelected] = React.useState<string | null>(null);
 
   const handleClear = React.useCallback(() => {
     setCurrentSort(uploadSorts[0]);
-    setSelected(null);
   }, []);
 
   return (
@@ -123,22 +123,22 @@ const UploadDataModal: React.FC<Props> = ({
               {currentSort.value === 'custom' && (
                 <div className="mt-2">
                   <ul className="space-y-1 mt-4 flex-grow overflow-y-auto">
-                    {customDatasetList.map((dataset, idx) => (
+                    {customDatasetList.map((customDataset, idx) => (
                       <li key={`custom-dataset-${idx}`}>
                         <button
                           className={cn(
                             'w-full inline-flex justify-between py-2 px-2.5 rounded-md',
                             {
                               'hover:bg-lightBlue-300 hover:text-white':
-                                selected !== dataset.name,
+                                dataset !== customDataset.name,
                               'bg-primary text-white font-semibold':
-                                selected === dataset.name,
+                                dataset === customDataset.name,
                             },
                           )}
-                          onClick={() => setSelected(dataset.name)}
+                          onClick={() => setDataset(customDataset.name)}
                         >
-                          <span>&middot; {dataset.name}</span>
-                          <span>({dataset.description})</span>
+                          <span>&middot; {customDataset.name}</span>
+                          <span>({customDataset.description})</span>
                         </button>
                       </li>
                     ))}
@@ -148,22 +148,22 @@ const UploadDataModal: React.FC<Props> = ({
               {currentSort.value === 'public' && (
                 <div className="mt-2">
                   <ul className="space-y-1 mt-4 flex-grow overflow-y-auto">
-                    {publicDatasetList.map((dataset, idx) => (
+                    {publicDatasetList.map((publicDataset, idx) => (
                       <li key={`public-dataset-${idx}`}>
                         <button
                           className={cn(
                             'w-full inline-flex justify-between py-2 px-2.5 rounded-md',
                             {
                               'hover:bg-lightBlue-300 hover:text-white':
-                                selected !== dataset.name,
+                                dataset !== publicDataset.name,
                               'bg-primary text-white font-semibold':
-                                selected === dataset.name,
+                                dataset === publicDataset.name,
                             },
                           )}
-                          onClick={() => setSelected(dataset.name)}
+                          onClick={() => setDataset(publicDataset.name)}
                         >
-                          <span>&middot; {dataset.name}</span>
-                          <span>({dataset.description})</span>
+                          <span>&middot; {publicDataset.name}</span>
+                          <span>({publicDataset.description})</span>
                         </button>
                       </li>
                     ))}
@@ -174,7 +174,7 @@ const UploadDataModal: React.FC<Props> = ({
           </div>
           <div className="flex justify-between pl-1 pr-2 text-lg">
             <span>Selected: </span>
-            <span>{selected ?? 'NULL'}</span>
+            <span>{dataset ?? 'NULL'}</span>
           </div>
           <div className="mt-2 sm:mt-4 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense">
             <Button
@@ -184,9 +184,9 @@ const UploadDataModal: React.FC<Props> = ({
                   'bg-primary hover:bg-lightBlue-500 sm:col-start-2': true,
                 },
               )}
-              disabled={selected === null}
+              disabled={dataset === null}
               onClick={() => {
-                onConfirm(selected ?? 'NULL');
+                onConfirm(dataset ?? 'NULL');
                 setTimeout(() => handleClear(), 200);
                 close();
               }}

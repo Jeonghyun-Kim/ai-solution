@@ -22,7 +22,6 @@ const DataPage = () => {
   const router = useRouter();
   const {
     dataset,
-    setDataset,
     augmentations,
     addAugmentation,
     preprocesses,
@@ -278,7 +277,7 @@ const DataPage = () => {
             upload: false,
           }))
         }
-        onConfirm={(item) => setDataset(item)}
+        onConfirm={() => {}}
       />
       <Modal
         show={modalFlags.success}
