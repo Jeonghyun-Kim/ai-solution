@@ -1,9 +1,9 @@
 import React from 'react';
 
+import PreparingPage from '@components/Preparing';
+
 const DashBoardPage = () => {
-  return (
-    <div className="mx-auto max-w-screen-lg text-2xl pt-4">dash board</div>
-  );
+  return <PreparingPage />;
 };
 
 export default DashBoardPage;

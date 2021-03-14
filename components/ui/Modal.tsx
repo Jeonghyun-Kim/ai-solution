@@ -147,8 +147,10 @@ const Modal: React.FC<Props> = ({
           </div>
           <div
             className={cn('mt-5', {
-              'sm:mt-6 sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense':
-                variant === 'default',
+              'sm:mt-6': variant === 'default',
+              'sm:grid sm:grid-cols-2 sm:gap-3 sm:grid-flow-row-dense':
+                variant === 'default' && cancelButton !== undefined,
+              'sm:flex': variant === 'default' && cancelButton === undefined,
               'sm:mt-4 sm:flex sm:flex-row-reverse': variant === 'alert',
             })}
           >

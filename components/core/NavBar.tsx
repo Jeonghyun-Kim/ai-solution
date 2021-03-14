@@ -4,32 +4,37 @@ import cn from 'classnames';
 
 import { Avatar, Link } from '@components/ui';
 
-import s from './NavBar.module.css';
-
 const menuItems = ['data', 'model', 'dash board', 'marketplace'];
 
 const NavBar: React.FC = () => {
   const router = useRouter();
-  const [profileOpen, setProfileOpen] = React.useState<boolean>(false);
-  const [menuOpen, setMenuOpen] = React.useState<boolean>(false);
 
   return (
     <nav className="bg-white shadow">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12">
         <div className="flex justify-between h-16">
           <div className="flex-shrink-0 flex items-center">
-            <Link className="text-xl font-extrabold" href="/">
+            <Link
+              className="hidden md:inline text-3xl font-extrabold rounded-md font-serif"
+              href="/"
+            >
+              AISolution
+            </Link>
+            <Link
+              className="inline md:hidden text-3xl font-extrabold rounded-md font-serif"
+              href="/"
+            >
               AIS
             </Link>
           </div>
           <div className="flex">
-            <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
+            <div className="hidden sm:ml-6 sm:flex sm:space-x-4">
               {menuItems.map((item, idx) => (
                 <Link
                   key={`desktop-menu-item-${idx}`}
                   href={`/${item.split(' ').join('-')}`}
                   className={cn(
-                    'inline-flex items-center px-1 pt-1 border-b-2 text-sm font-medium capitalize',
+                    'inline-flex items-center px-2 pt-1 border-b-4 text-md font-medium capitalize',
                     {
                       'border-lightBlue-500 text-gray-900':
                         router.asPath === `/${item.split(' ').join('-')}`,

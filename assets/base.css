@@ -13,6 +13,10 @@ body {
   @apply text-gray-900 text-base;
 }
 
+.h-screen-header {
+  height: calc(100vh - 4rem);
+}
+
 *::-webkit-scrollbar {
   display: none;
 }

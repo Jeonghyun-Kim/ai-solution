@@ -1,0 +1,10 @@
+[
+  {
+    "name": "COCO",
+    "description": "object detection"
+  },
+  {
+    "name": "ImageNet",
+    "description": "classification"
+  }
+]

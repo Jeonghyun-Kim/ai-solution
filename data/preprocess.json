@@ -1,0 +1,47 @@
+[
+  {
+    "name": "Normalization",
+    "details": {
+      "title": "Normalization",
+      "description": "",
+      "exampleImages": [],
+      "descriptionImages": []
+    }
+  },
+  {
+    "name": "CenterCrop",
+    "details": {
+      "title": "CenterCrop",
+      "description": "",
+      "exampleImages": [],
+      "descriptionImages": []
+    }
+  },
+  {
+    "name": "Hashing",
+    "details": {
+      "title": "Hashing",
+      "description": "",
+      "exampleImages": [],
+      "descriptionImages": []
+    }
+  },
+  {
+    "name": "Rescaling",
+    "details": {
+      "title": "Rescaling",
+      "description": "",
+      "exampleImages": [],
+      "descriptionImages": []
+    }
+  },
+  {
+    "name": "Resizing",
+    "details": {
+      "title": "Resizing",
+      "description": "",
+      "exampleImages": [],
+      "descriptionImages": []
+    }
+  }
+]

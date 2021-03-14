@@ -9,6 +9,7 @@ module.exports = {
     extend: {
       height: {
         4.5: '18px',
+        128: '32rem',
       },
       colors: {
         primary: colors.lightBlue[400],

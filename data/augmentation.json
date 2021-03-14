@@ -1,0 +1,65 @@
+[
+  {
+    "name": "GrayScale",
+    "details": {
+      "title": "GrayScale",
+      "description": "",
+      "exampleImages": [],
+      "descriptionImages": []
+    }
+  },
+  {
+    "name": "RandomRotation",
+    "details": {
+      "title": "RandomRotation",
+      "description": "",
+      "exampleImages": [],
+      "descriptionImages": []
+    }
+  },
+  {
+    "name": "RandomContrast",
+    "details": {
+      "title": "RandomContrast",
+      "description": "",
+      "exampleImages": [],
+      "descriptionImages": []
+    }
+  },
+  {
+    "name": "RandomCrop",
+    "details": {
+      "title": "RandomCrop",
+      "description": "",
+      "exampleImages": [],
+      "descriptionImages": []
+    }
+  },
+  {
+    "name": "RandomHeight",
+    "details": {
+      "title": "RandomHeight",
+      "description": "",
+      "exampleImages": [],
+      "descriptionImages": []
+    }
+  },
+  {
+    "name": "RandomTranslation",
+    "details": {
+      "title": "RandomTranslation",
+      "description": "",
+      "exampleImages": [],
+      "descriptionImages": []
+    }
+  },
+  {
+    "name": "RandomWidth",
+    "details": {
+      "title": "RandomWidth",
+      "description": "",
+      "exampleImages": [],
+      "descriptionImages": []
+    }
+  }
+]
