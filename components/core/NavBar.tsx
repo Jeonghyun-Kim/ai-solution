@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 import { Avatar, Link } from '@components/ui';
 
-const menuItems = ['data', 'model', 'dash board', 'marketplace'];
+const menuItems = ['dash board', 'data', 'model', 'marketplace'];
 
 const NavBar: React.FC = () => {
   const router = useRouter();
