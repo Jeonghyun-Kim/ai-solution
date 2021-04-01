@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export interface State {
   dataset: string | null;
   augmentations: Augmentation[];
   preprocesses: Preprocess[];
+  user: UserInfo | null;
 }
 
 export interface StateWithActions extends State {
@@ -15,12 +16,14 @@ export interface StateWithActions extends State {
   removePreprocess: (index: number) => void;
   saveLearningProcess: () => void;
   restoreLearningProcess: () => void;
+  mutateUser: () => void;
 }
 
 const initialState: State = {
   dataset: null,
   augmentations: [],
   preprocesses: [],
+  user: null,
 };
 
 const initialStateWithActions: StateWithActions = {
@@ -33,6 +36,7 @@ const initialStateWithActions: StateWithActions = {
   removePreprocess: () => {},
   saveLearningProcess: () => {},
   restoreLearningProcess: () => {},
+  mutateUser: () => {},
 };
 
 export const UIContext = React.createContext<StateWithActions>(
@@ -87,6 +91,19 @@ export const UIProvider: React.FC = ({ ...props }) => {
     if (savedState) setState(JSON.parse(savedState));
   }, []);
 
+  const mutateUser = React.useCallback(() => {
+    const user = sessionStorage.getItem('@user');
+
+    setState((prev) => ({
+      ...prev,
+      user: user === null ? null : JSON.parse(user),
+    }));
+  }, []);
+
+  useEffect(() => {
+    restoreLearningProcess();
+  }, [restoreLearningProcess]);
+
   return (
     <UIContext.Provider
       value={{
@@ -99,6 +116,7 @@ export const UIProvider: React.FC = ({ ...props }) => {
         removePreprocess,
         saveLearningProcess,
         restoreLearningProcess,
+        mutateUser,
       }}
       {...props}
     />

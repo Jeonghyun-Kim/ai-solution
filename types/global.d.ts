@@ -24,3 +24,9 @@ type Preprocess = {
 };
 
 type DataProcessItem = Augmentation | Preprocess;
+
+interface UserInfo {
+  id: string;
+  name: string;
+  profile: string | null;
+}
