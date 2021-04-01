@@ -167,14 +167,14 @@ const DashBoardPage = () => {
           </div>
           <div className="col-span-8">
             <div className="bg-white rounded-lg shadow-lg p-4 overflow-hidden">
-              <h3 className="ml-1 mt-2 text-xl font-medium capitalize">
+              <h3 className="ml-1 mb-2 text-xl font-medium capitalize">
                 currently running experiments
               </h3>
               <div className="flex flex-col">
                 <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                  <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+                  <div className="py-4 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                     <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                      <table className="min-w-full mt-4 divide-y divide-gray-200">
+                      <table className="min-w-full divide-y divide-gray-200">
                         <thead className="bg-gray-50">
                           <tr>
                             <th
