@@ -286,7 +286,9 @@ const DataPage = () => {
         content="You can now select learning models."
         actionButton={{
           label: 'Go to Select Models',
-          onClick: () => router.push('/model'),
+          onClick: () => {
+            router.push('/models');
+          },
         }}
       />
       <Modal

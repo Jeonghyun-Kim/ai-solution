@@ -1,3 +1,7 @@
 .main {
   height: calc(100% - 4rem);
 }
+
+.main.with-user {
+  height: calc(100% - 6rem);
+}

@@ -46,7 +46,6 @@ const Button = React.forwardRef<any, Props>(
           {
             'text-white disabled:text-gray-50 disabled:bg-gray-400 disabled:opacity-70 disabled:cursor-default':
               color !== 'white',
-            'text-gray-400': color === 'white',
           },
         )}
         {...props}

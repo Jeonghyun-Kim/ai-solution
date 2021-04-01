@@ -25,7 +25,7 @@ module.exports = {
     extend: {
       opacity: ['disabled'],
       textColor: ['disabled', 'focus-visible'],
-      backgroundColor: ['disabled'],
+      backgroundColor: ['disabled', 'even'],
       cursor: ['disabled'],
       ringColor: ['focus-visible'],
       ringOffsetWidth: ['focus-visible'],

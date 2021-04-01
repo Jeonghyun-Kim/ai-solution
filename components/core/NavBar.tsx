@@ -20,9 +20,21 @@ const NavBar: React.FC = () => {
   const { user, mutateUser } = useUI();
 
   const menuItems = React.useMemo(() => {
-    if (user === null) return ['pricing', 'contact', 'signin'];
+    if (user === null)
+      return [
+        { label: 'pricing', href: '/pricing' },
+        { label: 'contact', href: '/contact' },
+        { label: 'docs', href: '/docs' },
+        { label: 'sign in', href: '/signin' },
+      ];
 
-    return ['data', 'models', 'projects', 'marketplace'];
+    return [
+      { label: 'overview', href: '/dashboard' },
+      { label: 'projects', href: '/projects' },
+      { label: 'data', href: '/data' },
+      { label: 'models', href: '/models' },
+      { label: 'marketplace', href: '/marketplace' },
+    ];
   }, [user]);
 
   React.useEffect(() => {
@@ -48,22 +60,26 @@ const NavBar: React.FC = () => {
             </Link>
           </div>
           <div className="flex">
-            <div className="ml-6 flex space-x-4">
-              {menuItems.map((item, idx) => (
+            <div
+              className={cn('ml-6 flex space-x-4', {
+                hidden: user,
+              })}
+            >
+              {menuItems.map(({ label, href }, idx) => (
                 <Link
                   key={`desktop-menu-item-${idx}`}
-                  href={`/${item.split(' ').join('-')}`}
+                  href={href}
                   className={cn(
                     'inline-flex items-center px-2 pt-1 border-b-4 text-md font-medium capitalize',
                     {
                       'border-lightBlue-500 text-gray-900':
-                        router.asPath === `/${item.split(' ').join('-')}`,
+                        router.asPath === href,
                       'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700':
-                        router.asPath !== `/${item.split(' ').join('-')}`,
+                        router.asPath !== href,
                     },
                   )}
                 >
-                  {item}
+                  {label}
                 </Link>
               ))}
             </div>
@@ -111,6 +127,31 @@ const NavBar: React.FC = () => {
                 </Transition>
               </div>
             )}
+          </div>
+        </div>
+        <div className="flex">
+          <div
+            className={cn('flex space-x-4', {
+              hidden: !user,
+            })}
+          >
+            {menuItems.map(({ label, href }, idx) => (
+              <Link
+                key={`desktop-menu-item-${idx}`}
+                href={href}
+                className={cn(
+                  'inline-flex items-center px-2 pt-1 border-b-2 text-md font-medium capitalize',
+                  {
+                    'border-lightBlue-500 text-gray-900':
+                      router.asPath === href,
+                    'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700':
+                      router.asPath !== href,
+                  },
+                )}
+              >
+                {label}
+              </Link>
+            ))}
           </div>
         </div>
       </div>
