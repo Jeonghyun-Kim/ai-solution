@@ -1,7 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
 
-import { useUI } from '@components/ui/context';
 import { NavBar, SubNavBar } from '@components/core';
 
 import s from './Layout.module.css';
@@ -11,7 +10,6 @@ interface Props {
 }
 
 const Layout: React.FC<Props> = ({ variant, children }) => {
-  const { user } = useUI();
   const [sticky, setSticky] = React.useState<boolean>(false);
 
   React.useEffect(() => {

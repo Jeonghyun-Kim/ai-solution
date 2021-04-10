@@ -5,10 +5,3 @@ interface ModelItem {
   parameters: number;
   lastEdited: string;
 }
-
-interface BrowseModelItem {
-  title: string;
-  description: string;
-  task: string;
-  createdBy: string;
-}

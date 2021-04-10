@@ -3,14 +3,15 @@ import { useRouter } from 'next/router';
 
 // components
 import { Button, Input, Select } from '@components/ui';
-import BrowseModelListItem from '@components/model/BrowseModeListlItem';
+import BrowseModelListItem from '@components/custom/BrowseListItem';
+import { useUI } from '@components/ui/context';
 
 const selectItems = [
   { label: 'Local', value: 'local' },
   { label: 'Visual', value: 'visual' },
 ];
 
-const browseModelItems: BrowseModelItem[] = [
+const browseModelItems: BrowseItem[] = [
   {
     title: 'Transformer',
     description: 'created by Google on 2018.',
@@ -43,6 +44,8 @@ const ModelUploadPage = () => {
     'local',
   );
   const [file, setFile] = React.useState<File | null>(null);
+
+  const { setTitle } = useUI();
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -103,7 +106,15 @@ const ModelUploadPage = () => {
               >
                 Back
               </Button>
-              <Button className="px-16" size="lg" disabled={!file}>
+              <Button
+                className="px-16"
+                size="lg"
+                disabled={!file}
+                onClick={() => {
+                  setTitle('BERT');
+                  router.push('/model/overview');
+                }}
+              >
                 Next
               </Button>
             </div>
@@ -120,7 +131,7 @@ const ModelUploadPage = () => {
                 {[...browseModelItems, ...browseModelItems].map(
                   (model, idx) => (
                     <li key={`browseModel-${idx}`}>
-                      <BrowseModelListItem model={model} />
+                      <BrowseModelListItem item={model} />
                     </li>
                   ),
                 )}
@@ -129,7 +140,7 @@ const ModelUploadPage = () => {
             <div>
               <button className="hover:opacity-80">
                 <span className="text-gray-600 text-xl">
-                  Browse All AI models &gt;
+                  Browse All AI Models &gt;
                 </span>
               </button>
             </div>

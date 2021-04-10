@@ -30,3 +30,10 @@ interface UserInfo {
   name: string;
   profile: string | null;
 }
+
+interface BrowseItem {
+  title: string;
+  description: string;
+  task: string;
+  createdBy: string;
+}
