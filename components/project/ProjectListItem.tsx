@@ -15,7 +15,7 @@ const ProjectListItem: React.FC<Props> = ({ project }) => {
         <p className="whitespace-pre-line line-clamp-3">
           {project.description}
         </p>
-        <div className="mt-4 grid grid-cols-3 gap-4">
+        <div className="mt-4 grid grid-cols-3 gap-4 text-center">
           <div>
             <h4 className="underline font-semibold mb-2">Team</h4>
             <p>{project.team.join(', ')}</p>

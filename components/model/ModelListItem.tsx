@@ -14,7 +14,7 @@ const ModelListItem: React.FC<Props> = ({ model }) => {
       <div className="p-4 h-44">
         <h4 className="underline font-semibold mb-2">Description</h4>
         <p className="whitespace-pre-line line-clamp-3">{model.description}</p>
-        <div className="mt-4 grid grid-cols-3 gap-4">
+        <div className="mt-4 grid grid-cols-3 gap-4 text-center">
           <div>
             <h4 className="underline font-semibold mb-2">Deploy</h4>
             <p
