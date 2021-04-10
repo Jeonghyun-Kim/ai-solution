@@ -1,4 +1,5 @@
 import React from 'react';
+import NextLink from 'next/link';
 
 import { Avatar, Button } from '@components/ui';
 import useUser from '@lib/useUser';
@@ -119,9 +120,11 @@ const DashBoardPage = () => {
         <div className="pt-10">
           <div className="flex justify-between items-center">
             <h3 className="text-xl font-medium capitalize">Your Stats</h3>
-            <Button className="capitalize" color="lightBlue">
-              new project
-            </Button>
+            <NextLink href="/project/upload">
+              <Button className="capitalize" color="lightBlue">
+                new project
+              </Button>
+            </NextLink>
           </div>
           <dl className="mt-6 grid gap-5 grid-cols-4">
             {stats.map((stat, idx) => (

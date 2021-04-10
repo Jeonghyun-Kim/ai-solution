@@ -2,7 +2,6 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { Transition } from '@headlessui/react';
-import { mutate } from 'swr';
 
 // contexts
 import { useUI } from '@components/ui/context';
