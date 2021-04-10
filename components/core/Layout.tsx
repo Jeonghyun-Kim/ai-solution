@@ -31,12 +31,12 @@ const Layout: React.FC<Props> = ({ variant, children }) => {
       <header>
         <NavBar variant={variant} />
         <div
-          className={cn('h-10', {
+          className={cn('h-12', {
             hidden: !variant,
           })}
         >
           <SubNavBar
-            className={cn('z-50 h-10')}
+            className={cn('z-50 h-12')}
             sticky={sticky}
             variant={variant}
           />

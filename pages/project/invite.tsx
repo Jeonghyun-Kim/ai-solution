@@ -2,9 +2,9 @@ import React from 'react';
 
 import PreparingPage from '@components/Preparing';
 
-const ModelSummaryPage = () => {
+const ProjectInvitePage = () => {
   return <PreparingPage />;
 };
 
-ModelSummaryPage.variant = 'model';
-export default ModelSummaryPage;
+ProjectInvitePage.variant = 'project';
+export default ProjectInvitePage;

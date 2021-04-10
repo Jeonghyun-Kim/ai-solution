@@ -15,7 +15,7 @@ const navArray = {
   user: [
     { label: 'overview', href: '/dashboard' },
     { label: 'project', href: '/project' },
-    { label: 'data', href: '/data' },
+    { label: 'data', href: '/dataset' },
     { label: 'model', href: '/model' },
     { label: 'marketplace', href: '/marketplace' },
   ],
@@ -26,11 +26,11 @@ const navArray = {
     { label: 'settings', href: '/model/settings' },
   ],
   dataset: [
-    { label: 'overview', href: '/data/overview' },
-    { label: 'template', href: '/data/template' },
-    { label: 'analytics', href: '/data/analytics' },
-    { label: 'modification', href: '/data/edit' },
-    { label: 'settings', href: '/data/settings' },
+    { label: 'overview', href: '/dataset/overview' },
+    { label: 'template', href: '/dataset/template' },
+    { label: 'analytics', href: '/dataset/analytics' },
+    { label: 'modification', href: '/dataset/edit' },
+    { label: 'settings', href: '/dataset/settings' },
   ],
   project: [
     { label: 'overview', href: '/project/overview' },
@@ -80,16 +80,16 @@ const SubNavBar: React.FC<Props> = ({ className, sticky, variant }) => {
           })}
         >
           {menuItems && (
-            <div className="flex h-full items-end space-x-4">
+            <div className="flex h-full space-x-4">
               {menuItems.map(({ label, href }, idx) => (
                 <Link
                   key={`desktop-menu-item-${idx}`}
                   href={href}
                   className={cn(
-                    'inline-flex items-center px-2 py-1 border-b-2 text-md font-medium capitalize',
+                    'inline-flex h-full items-center px-2 py-1 border-b-2 text-md font-medium capitalize',
                     {
                       'border-lightBlue-500 text-gray-900':
-                        router.asPath === href,
+                        router.asPath.split('?')[0] === href,
                       'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700':
                         router.asPath !== href,
                     },

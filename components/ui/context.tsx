@@ -5,6 +5,7 @@ export interface State {
   augmentations: Augmentation[];
   preprocesses: Preprocess[];
   user: UserInfo | null;
+  title: string | null;
 }
 
 export interface StateWithActions extends State {
@@ -17,6 +18,7 @@ export interface StateWithActions extends State {
   saveLearningProcess: () => void;
   restoreLearningProcess: () => void;
   mutateUser: () => void;
+  setTitle: (title: string) => void;
 }
 
 const initialState: State = {
@@ -24,6 +26,7 @@ const initialState: State = {
   augmentations: [],
   preprocesses: [],
   user: null,
+  title: null,
 };
 
 const initialStateWithActions: StateWithActions = {
@@ -37,6 +40,7 @@ const initialStateWithActions: StateWithActions = {
   saveLearningProcess: () => {},
   restoreLearningProcess: () => {},
   mutateUser: () => {},
+  setTitle: () => {},
 };
 
 export const UIContext = React.createContext<StateWithActions>(
@@ -100,6 +104,13 @@ export const UIProvider: React.FC = ({ ...props }) => {
     }));
   }, []);
 
+  const setTitle = React.useCallback((title: string) => {
+    setState((prev) => ({
+      ...prev,
+      title,
+    }));
+  }, []);
+
   useEffect(() => {
     restoreLearningProcess();
   }, [restoreLearningProcess]);
@@ -117,6 +128,7 @@ export const UIProvider: React.FC = ({ ...props }) => {
         saveLearningProcess,
         restoreLearningProcess,
         mutateUser,
+        setTitle,
       }}
       {...props}
     />

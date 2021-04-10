@@ -30,7 +30,7 @@ const NavBar: React.FC<Props> = ({ className, variant }) => {
 
   const [profileOpen, setProfileOpen] = React.useState<boolean>(false);
 
-  const { user, mutateUser } = useUI();
+  const { user, mutateUser, title } = useUI();
 
   React.useEffect(() => {
     const handler = () => {
@@ -54,7 +54,7 @@ const NavBar: React.FC<Props> = ({ className, variant }) => {
               AISolution
             </Link>
             <Link
-              className={cn('flex space-x-2 text-xl', {
+              className={cn('flex space-x-4 text-xl', {
                 hidden: !user,
               })}
               href="/dashboard"
@@ -63,7 +63,7 @@ const NavBar: React.FC<Props> = ({ className, variant }) => {
               <span>gjk287</span>
             </Link>
             <Link
-              className={cn('flex space-x-2 text-xl', {
+              className={cn('flex space-x-4 text-xl', {
                 hidden: !variant || variant === 'user',
               })}
               href={`/${variant}`}
@@ -72,13 +72,13 @@ const NavBar: React.FC<Props> = ({ className, variant }) => {
               <span className="capitalize">{variant}</span>
             </Link>
             <Link
-              className={cn('flex space-x-2 text-xl', {
-                hidden: !variant || variant === 'user' || !router.query.title,
+              className={cn('flex space-x-4 text-xl', {
+                hidden: !variant || variant === 'user' || !title,
               })}
-              href="/model"
+              href={`/${variant}/overview`}
             >
               <span className="text-gray-400">/</span>
-              <span className="capitalize">{router.query.title}</span>
+              <span className="capitalize">{title}</span>
             </Link>
           </div>
           <div className="flex">
