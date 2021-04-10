@@ -1,4 +1,5 @@
 import React from 'react';
+import NextLink from 'next/link';
 
 // components
 import { Button, Link } from '@components/ui';
@@ -37,9 +38,11 @@ const ModelListPage = () => {
       <div className="max-w-screen-xl mx-auto">
         <div className="pt-10 flex justify-between items-center">
           <h3 className="text-xl font-medium capitalize">Search</h3>
-          <Button className="capitalize" color="lightBlue">
-            Upload Model
-          </Button>
+          <NextLink href="/model/upload">
+            <Button className="capitalize" color="lightBlue">
+              Upload Model
+            </Button>
+          </NextLink>
         </div>
         <ul className="mt-10 grid grid-cols-3 gap-8">
           {[...models, ...models, ...models, ...models].map((model, idx) => (

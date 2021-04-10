@@ -44,7 +44,7 @@ const Layout: React.FC<Props> = ({ variant, children }) => {
       </header>
       <main
         className={cn(s.main, {
-          [s['with-user']]: user,
+          [s['with-variant']]: variant !== undefined,
         })}
       >
         {children}
