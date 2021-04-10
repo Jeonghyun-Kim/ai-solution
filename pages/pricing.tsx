@@ -2,8 +2,8 @@ import React from 'react';
 
 import PreparingPage from '@components/Preparing';
 
-const PricingPage = () => {
+const PeoplePage = () => {
   return <PreparingPage />;
 };
 
-export default PricingPage;
+export default PeoplePage;

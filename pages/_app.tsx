@@ -30,7 +30,7 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
         <script type="text/javascript" src="/js/redirectIE.js" />
       </Head>
       <ManagedUIContext>
-        <Layout>
+        <Layout variant={(Component as any).variant}>
           <Component {...pageProps} />
         </Layout>
       </ManagedUIContext>

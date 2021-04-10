@@ -12,30 +12,25 @@ import { Avatar, Link } from '@components/ui';
 // libraries
 import signout from '@lib/signout';
 
-const NavBar: React.FC = () => {
+interface Props {
+  className?: string;
+  variant?: 'user' | 'model' | 'dataset' | 'project';
+}
+
+const menuItems = [
+  { label: 'people', href: '/people' },
+  { label: 'pricing', href: '/pricing' },
+  { label: 'contact', href: '/contact' },
+  { label: 'docs', href: '/docs' },
+  { label: 'sign in', href: '/signin' },
+];
+
+const NavBar: React.FC<Props> = ({ className, variant }) => {
   const router = useRouter();
 
   const [profileOpen, setProfileOpen] = React.useState<boolean>(false);
 
   const { user, mutateUser } = useUI();
-
-  const menuItems = React.useMemo(() => {
-    if (user === null)
-      return [
-        { label: 'pricing', href: '/pricing' },
-        { label: 'contact', href: '/contact' },
-        { label: 'docs', href: '/docs' },
-        { label: 'sign in', href: '/signin' },
-      ];
-
-    return [
-      { label: 'overview', href: '/dashboard' },
-      { label: 'projects', href: '/projects' },
-      { label: 'data', href: '/data' },
-      { label: 'models', href: '/models' },
-      { label: 'marketplace', href: '/marketplace' },
-    ];
-  }, [user]);
 
   React.useEffect(() => {
     const handler = () => {
@@ -48,15 +43,42 @@ const NavBar: React.FC = () => {
   }, [profileOpen]);
 
   return (
-    <nav className="bg-white shadow">
+    <nav className={cn(className, 'bg-white shadow')}>
       <div className="mx-auto px-10 2xl:px-12">
         <div className="flex justify-between h-16">
-          <div className="flex-shrink-0 flex items-center">
+          <div className="flex-shrink-0 flex items-center space-x-4">
             <Link
               className="text-3xl font-extrabold rounded-md font-serif"
               href={user ? '/dashboard' : '/'}
             >
               AISolution
+            </Link>
+            <Link
+              className={cn('flex space-x-2 text-xl', {
+                hidden: !user,
+              })}
+              href="/dashboard"
+            >
+              <span className="text-gray-400">/</span>
+              <span>gjk287</span>
+            </Link>
+            <Link
+              className={cn('flex space-x-2 text-xl', {
+                hidden: !variant || variant === 'user',
+              })}
+              href={`/${variant}`}
+            >
+              <span className="text-gray-400">/</span>
+              <span className="capitalize">{variant}</span>
+            </Link>
+            <Link
+              className={cn('flex space-x-2 text-xl', {
+                hidden: !variant || variant === 'user' || !router.query.title,
+              })}
+              href="/model"
+            >
+              <span className="text-gray-400">/</span>
+              <span className="capitalize">{router.query.title}</span>
             </Link>
           </div>
           <div className="flex">
@@ -108,7 +130,7 @@ const NavBar: React.FC = () => {
                   leave="transition ease-in duration-75"
                   leaveFrom="transform opacity-100 scale-100"
                   leaveTo="transform opacity-0 scale-95"
-                  className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10"
+                  className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-20"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="user-menu"
@@ -129,7 +151,7 @@ const NavBar: React.FC = () => {
             )}
           </div>
         </div>
-        <div className="flex">
+        {/* <div className="flex">
           <div
             className={cn('flex space-x-4', {
               hidden: !user,
@@ -153,7 +175,7 @@ const NavBar: React.FC = () => {
               </Link>
             ))}
           </div>
-        </div>
+        </div> */}
       </div>
     </nav>
   );

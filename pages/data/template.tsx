@@ -2,9 +2,9 @@ import React from 'react';
 
 import PreparingPage from '@components/Preparing';
 
-const MarketplacePage = () => {
+const DatasetTemplatPage = () => {
   return <PreparingPage />;
 };
 
-MarketplacePage.variant = 'user';
-export default MarketplacePage;
+DatasetTemplatPage.variant = 'dataset';
+export default DatasetTemplatPage;

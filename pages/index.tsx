@@ -1,5 +1,7 @@
 import React from 'react';
 import NextImage from 'next/image';
+import { useUI } from '@components/ui/context';
+import { useRouter } from 'next/router';
 
 const teamMembers = [
   {
@@ -23,6 +25,15 @@ const teamMembers = [
 ];
 
 const IndexPage = () => {
+  const router = useRouter();
+  const { user } = useUI();
+
+  React.useEffect(() => {
+    if (user) {
+      router.replace('/dashboard');
+    }
+  }, [user, router]);
+
   return (
     <div className="mx-auto text-2xl pb-24">
       <div className="mx-auto max-w-screen-lg my-20 py-12 flex items-center justify-between">
@@ -271,7 +282,7 @@ const IndexPage = () => {
           </div>
         </div>
       </div>
-      <div className="max-w-screen-lg mx-auto">
+      {/* <div className="max-w-screen-lg mx-auto">
         <div className="mt-16">
           <h3 className="text-3xl font-bold">Our Team</h3>
           <p className="mt-2 text-lg text-gray-600">
@@ -304,7 +315,7 @@ const IndexPage = () => {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 };

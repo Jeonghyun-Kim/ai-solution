@@ -2,17 +2,45 @@ import React from 'react';
 import cn from 'classnames';
 
 import { useUI } from '@components/ui/context';
-import { NavBar } from '@components/core';
+import { NavBar, SubNavBar } from '@components/core';
 
 import s from './Layout.module.css';
 
-const Layout: React.FC = ({ children }) => {
+interface Props {
+  variant?: 'user' | 'model' | 'dataset' | 'project';
+}
+
+const Layout: React.FC<Props> = ({ variant, children }) => {
   const { user } = useUI();
+  const [sticky, setSticky] = React.useState<boolean>(false);
+
+  React.useEffect(() => {
+    const handler = () => {
+      setSticky(window.scrollY > 64);
+    };
+
+    handler();
+
+    window.addEventListener('scroll', handler);
+
+    return () => window.removeEventListener('scorll', handler);
+  }, []);
 
   return (
     <div className="h-full" style={{ minWidth: 1280, minHeight: 720 }}>
-      <header className="sticky top-0 z-10">
-        <NavBar />
+      <header>
+        <NavBar variant={variant} />
+        <div
+          className={cn('h-10', {
+            hidden: !variant,
+          })}
+        >
+          <SubNavBar
+            className={cn('z-50 h-10')}
+            sticky={sticky}
+            variant={variant}
+          />
+        </div>
       </header>
       <main
         className={cn(s.main, {

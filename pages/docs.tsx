@@ -2,9 +2,8 @@ import React from 'react';
 
 import PreparingPage from '@components/Preparing';
 
-const MarketplacePage = () => {
+const DocumentationPage = () => {
   return <PreparingPage />;
 };
 
-MarketplacePage.variant = 'user';
-export default MarketplacePage;
+export default DocumentationPage;

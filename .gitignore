@@ -38,6 +38,5 @@ yarn-error.log*
 
 # Template
 Template
-template.*
 */**/test.*
 test/

@@ -265,11 +265,11 @@ const DashBoardPage = () => {
               </div>
             </div>
           </div>
-          <div className="col-span-2l flex flex-col items-center"></div>
         </div>
       </div>
     </div>
   );
 };
 
+DashBoardPage.variant = 'user';
 export default DashBoardPage;
