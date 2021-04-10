@@ -7,9 +7,11 @@ import type { AppProps } from 'next/app';
 import Head from 'next/head';
 import Router from 'next/router';
 import NProgress from 'nprogress';
+import { SWRConfig } from 'swr';
 
 import { Layout } from '@components/core';
 import ManagedUIContext from '@components/ui/context';
+import fetcher from '@lib/fetcher';
 
 NProgress.configure({
   minimum: 0.3,
@@ -30,9 +32,11 @@ const App: React.FC<AppProps> = ({ Component, pageProps }) => {
         <script type="text/javascript" src="/js/redirectIE.js" />
       </Head>
       <ManagedUIContext>
-        <Layout variant={(Component as any).variant}>
-          <Component {...pageProps} />
-        </Layout>
+        <SWRConfig value={{ fetcher }}>
+          <Layout variant={(Component as any).variant}>
+            <Component {...pageProps} />
+          </Layout>
+        </SWRConfig>
       </ManagedUIContext>
     </>
   );

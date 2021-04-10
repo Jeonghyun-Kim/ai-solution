@@ -1,38 +1,29 @@
 import React from 'react';
-import NextImage from 'next/image';
-import { useUI } from '@components/ui/context';
-import { useRouter } from 'next/router';
+import useUser from '@lib/useUser';
 
-const teamMembers = [
-  {
-    name: 'Gi Jung Kim',
-    position: 'CEO',
-    reference: 'Data Mining Center, Seoul National University',
-    url: '/images/profile/1.jpg',
-  },
-  {
-    name: 'Joo Won Kim',
-    position: 'CTO',
-    reference: 'Data Mining Center, Seoul National University',
-    url: '/images/profile/2.jpg',
-  },
-  {
-    name: 'Young Hoon Ahn',
-    position: 'AI Researcher',
-    reference: 'Data Mining Center, Seoul National University',
-    url: '/images/profile/3.jpg',
-  },
-];
+// const teamMembers = [
+//   {
+//     name: 'Gi Jung Kim',
+//     position: 'CEO',
+//     reference: 'Data Mining Center, Seoul National University',
+//     url: '/images/profile/1.jpg',
+//   },
+//   {
+//     name: 'Joo Won Kim',
+//     position: 'CTO',
+//     reference: 'Data Mining Center, Seoul National University',
+//     url: '/images/profile/2.jpg',
+//   },
+//   {
+//     name: 'Young Hoon Ahn',
+//     position: 'AI Researcher',
+//     reference: 'Data Mining Center, Seoul National University',
+//     url: '/images/profile/3.jpg',
+//   },
+// ];
 
 const IndexPage = () => {
-  const router = useRouter();
-  const { user } = useUI();
-
-  React.useEffect(() => {
-    if (user) {
-      router.replace('/dashboard');
-    }
-  }, [user, router]);
+  useUser({ redirectTo: '/dashboard', redirectIfFound: true });
 
   return (
     <div className="mx-auto text-2xl pb-24">

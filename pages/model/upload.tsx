@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { Button, Input, Select } from '@components/ui';
 import BrowseModelListItem from '@components/custom/BrowseListItem';
 import { useUI } from '@components/ui/context';
+import useUser from '@lib/useUser';
 
 const selectItems = [
   { label: 'Local', value: 'local' },
@@ -46,6 +47,8 @@ const ModelUploadPage = () => {
   const [file, setFile] = React.useState<File | null>(null);
 
   const { setTitle } = useUI();
+
+  useUser({ redirectTo: '/' });
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 

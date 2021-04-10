@@ -1,9 +1,11 @@
 import React from 'react';
+import NextLink from 'next/link';
 
 // components
 import { Button, Link } from '@components/ui';
 import ProjectListItem from '@components/project/ProjectListItem';
 import { useUI } from '@components/ui/context';
+import useUser from '@lib/useUser';
 
 const projects: ProjectItem[] = [
   {
@@ -32,14 +34,18 @@ const projects: ProjectItem[] = [
 const ProjectListPage = () => {
   const { setTitle } = useUI();
 
+  useUser({ redirectTo: '/' });
+
   return (
     <div className="min-h-full bg-gray-100 pb-40">
       <div className="max-w-screen-xl mx-auto">
         <div className="pt-10 flex justify-between items-center">
           <h3 className="text-xl font-medium capitalize">Search</h3>
-          <Button className="capitalize" color="lightBlue">
-            new project
-          </Button>
+          <NextLink href="/project/upload">
+            <Button className="capitalize" color="lightBlue">
+              new project
+            </Button>
+          </NextLink>
         </div>
         <ul className="mt-10 grid grid-cols-3 gap-8">
           {[...projects, ...projects, ...projects, ...projects].map(

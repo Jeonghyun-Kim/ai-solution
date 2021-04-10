@@ -5,6 +5,7 @@ import NextLink from 'next/link';
 import { Button, Link } from '@components/ui';
 import ModelListItem from '@components/model/ModelListItem';
 import { useUI } from '@components/ui/context';
+import useUser from '@lib/useUser';
 
 const models: ModelItem[] = [
   {
@@ -32,6 +33,8 @@ const models: ModelItem[] = [
 
 const ModelListPage = () => {
   const { setTitle } = useUI();
+
+  useUser({ redirectTo: '/' });
 
   return (
     <div className="min-h-full bg-gray-100 pb-40">

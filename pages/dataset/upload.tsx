@@ -7,6 +7,7 @@ import { Button, Input, Select } from '@components/ui';
 import BrowseModelListItem from '@components/custom/BrowseListItem';
 import { useUI } from '@components/ui/context';
 import Spinner from '@components/icons/Spinner';
+import useUser from '@lib/useUser';
 
 const selectItems = [
   { label: 'Local', value: 'local' },
@@ -53,6 +54,8 @@ const DatasetUploadPage = () => {
   const [datasetName, setDatasetName] = React.useState<string>('');
 
   const { setTitle } = useUI();
+
+  useUser({ redirectTo: '/' });
 
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 

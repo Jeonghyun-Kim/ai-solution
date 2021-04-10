@@ -1,27 +1,22 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-
-// contexts
-import { useUI } from '@components/ui/context';
+// import { mutate } from 'swr';
 
 // libraries
 import signin from '@lib/signin';
+import useUser from '@lib/useUser';
 
 const SigninPage = () => {
   const router = useRouter();
 
-  const { mutateUser } = useUI();
-
-  const handleSignin = React.useCallback(async () => {
-    await signin();
-    mutateUser();
-  }, [mutateUser]);
+  const { mutate } = useUser({
+    redirectTo: '/dashboard',
+    redirectIfFound: true,
+  });
 
   React.useEffect(() => {
-    handleSignin();
-
-    router.replace('/dashboard');
-  }, [handleSignin, router]);
+    signin().then(() => mutate());
+  }, [router, mutate]);
 
   return (
     <div className="mx-auto max-w-screen-lg text-2xl pb-24">loading...</div>

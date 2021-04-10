@@ -4,7 +4,6 @@ export interface State {
   dataset: string | null;
   augmentations: Augmentation[];
   preprocesses: Preprocess[];
-  user: UserInfo | null;
   title: string | null;
 }
 
@@ -17,7 +16,6 @@ export interface StateWithActions extends State {
   removePreprocess: (index: number) => void;
   saveLearningProcess: () => void;
   restoreLearningProcess: () => void;
-  mutateUser: () => void;
   setTitle: (title: string) => void;
 }
 
@@ -25,7 +23,6 @@ const initialState: State = {
   dataset: null,
   augmentations: [],
   preprocesses: [],
-  user: null,
   title: null,
 };
 
@@ -39,7 +36,6 @@ const initialStateWithActions: StateWithActions = {
   removePreprocess: () => {},
   saveLearningProcess: () => {},
   restoreLearningProcess: () => {},
-  mutateUser: () => {},
   setTitle: () => {},
 };
 
@@ -95,15 +91,6 @@ export const UIProvider: React.FC = ({ ...props }) => {
     if (savedState) setState(JSON.parse(savedState));
   }, []);
 
-  const mutateUser = React.useCallback(() => {
-    const user = sessionStorage.getItem('@user');
-
-    setState((prev) => ({
-      ...prev,
-      user: user === null ? null : JSON.parse(user),
-    }));
-  }, []);
-
   const setTitle = React.useCallback((title: string) => {
     setState((prev) => ({
       ...prev,
@@ -127,7 +114,6 @@ export const UIProvider: React.FC = ({ ...props }) => {
         removePreprocess,
         saveLearningProcess,
         restoreLearningProcess,
-        mutateUser,
         setTitle,
       }}
       {...props}

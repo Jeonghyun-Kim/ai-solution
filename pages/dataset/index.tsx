@@ -5,6 +5,7 @@ import NextLink from 'next/link';
 import { Button, Link } from '@components/ui';
 import DatasetListItem from '@components/dataset/DatasetListItem';
 import { useUI } from '@components/ui/context';
+import useUser from '@lib/useUser';
 
 const datasets: DatasetItem[] = [
   {
@@ -32,6 +33,8 @@ const datasets: DatasetItem[] = [
 
 const DatasetListPage = () => {
   const { setTitle } = useUI();
+
+  useUser({ redirectTo: '/' });
 
   return (
     <div className="min-h-full bg-gray-100 pb-40">

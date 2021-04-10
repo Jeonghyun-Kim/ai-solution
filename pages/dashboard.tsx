@@ -1,13 +1,13 @@
 import React from 'react';
 
 import { Avatar, Button } from '@components/ui';
-import { useUI } from '@components/ui/context';
+import useUser from '@lib/useUser';
 
 const stats = [
-  { label: 'projects', value: 42 },
-  { label: 'experiments', value: 372 },
-  { label: 'currently running', value: 3 },
-  { label: 'currently running experiments', value: 27 },
+  { label: 'all projects', value: 42 },
+  { label: 'all experiments', value: 372 },
+  { label: 'running projects', value: 3 },
+  { label: 'running experiments', value: 32 },
 ];
 
 const experiments = [
@@ -84,7 +84,7 @@ const DashBoardPage = () => {
     { user: UserInfo; time: string; content: string }[]
   >([]);
 
-  const { user } = useUI();
+  const { user } = useUser({ redirectTo: '/' });
 
   React.useEffect(() => {
     if (user) {
@@ -129,7 +129,7 @@ const DashBoardPage = () => {
                 key={`stat-${idx}`}
                 className="px-4 py-5 bg-white shadow rounded-lg overflow-hidden sm:p-6"
               >
-                <dt className="text-sm font-medium text-gray-500 truncate">
+                <dt className="text-sm font-medium text-gray-500 truncate capitalize">
                   {stat.label}
                 </dt>
                 <dd className="mt-1 text-3xl font-semibold text-gray-900">

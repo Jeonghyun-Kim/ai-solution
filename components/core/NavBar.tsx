@@ -2,6 +2,7 @@ import React from 'react';
 import { useRouter } from 'next/router';
 import cn from 'classnames';
 import { Transition } from '@headlessui/react';
+import { mutate } from 'swr';
 
 // contexts
 import { useUI } from '@components/ui/context';
@@ -11,6 +12,7 @@ import { Avatar, Link } from '@components/ui';
 
 // libraries
 import signout from '@lib/signout';
+import useUser from '@lib/useUser';
 
 interface Props {
   className?: string;
@@ -30,7 +32,9 @@ const NavBar: React.FC<Props> = ({ className, variant }) => {
 
   const [profileOpen, setProfileOpen] = React.useState<boolean>(false);
 
-  const { user, mutateUser, title } = useUI();
+  const { title } = useUI();
+
+  const { user } = useUser();
 
   React.useEffect(() => {
     const handler = () => {
@@ -105,7 +109,7 @@ const NavBar: React.FC<Props> = ({ className, variant }) => {
                 </Link>
               ))}
             </div>
-            {user !== null && (
+            {user && (
               <div className="relative ml-2">
                 <div className="h-full flex flex-col justify-center">
                   <button
@@ -117,7 +121,7 @@ const NavBar: React.FC<Props> = ({ className, variant }) => {
                     onClick={() => setProfileOpen((prev) => !prev)}
                   >
                     <span className="sr-only">Open user menu</span>
-                    <Avatar size="sm" src={user.profile} />
+                    <Avatar size="sm" src={user?.profile} />
                   </button>
                 </div>
 
@@ -138,10 +142,8 @@ const NavBar: React.FC<Props> = ({ className, variant }) => {
                   <button
                     className="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-gray-100"
                     role="menuitem"
-                    onClick={async () => {
-                      await signout();
-                      mutateUser();
-                      router.replace('/');
+                    onClick={() => {
+                      signout().then(() => router.reload());
                     }}
                   >
                     Sign Out
