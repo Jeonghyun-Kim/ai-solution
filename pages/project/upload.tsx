@@ -71,7 +71,7 @@ const ProjectUploadPage = () => {
                   disabled={!projectName}
                   onClick={() => {
                     setTitle('Financial Data Sentiment Analysis');
-                    router.push('/dataset/overview');
+                    router.push('/project/overview');
                   }}
                 >
                   Next
