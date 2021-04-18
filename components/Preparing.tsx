@@ -18,7 +18,7 @@ const PreparingPage = () => {
       </h1>
       <div className="mt-4 sm:mt-6 flex justify-center">
         <NextLink href="/">
-          <Button size="md">Back to Home</Button>
+          <Button>Back to Home</Button>
         </NextLink>
       </div>
     </div>

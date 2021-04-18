@@ -6,13 +6,15 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   className?: string;
   children?: React.ReactNode;
   color?: 'lightBlue' | 'red' | 'white';
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+  full?: boolean;
+  size?: 'sm' | 'base' | 'lg';
   Component?: string | React.JSXElementConstructor<any>;
 }
 
 const colorClasses = {
-  lightBlue: 'bg-lightBlue-400 hover:bg-lightBlue-500',
-  red: 'bg-red-600 hover:bg-red-700 focus-visible:ring-red-500',
+  lightBlue: 'bg-lightBlue-400 hover:bg-lightBlue-500 border-transparent',
+  red:
+    'bg-red-400 hover:bg-red-500 focus-visible:ring-red-500 border-transparent',
   white: 'bg-white hover:bg-gray-50 border-gray-300',
 };
 
@@ -22,8 +24,9 @@ const Button = React.forwardRef<any, Props>(
       className,
       children,
       color = 'lightBlue',
-      size = 'md',
+      size = 'base',
       Component = 'button',
+      full = false,
       ...props
     },
     buttonRef,
@@ -34,13 +37,12 @@ const Button = React.forwardRef<any, Props>(
         type="button"
         className={cn(
           className,
-          'inline-flex items-center border border-transparent font-medium shadow-sm',
+          'px-4 py-2 inline-flex items-center border shadow-sm rounded-md font-semibold',
           {
-            'px-2.5 py-1.5 text-xs rounded ': size === 'xs',
-            'px-3 py-2 text-sm leading-4 ounded-md': size === 'sm',
-            'px-4 py-2 text-sm rounded-md': size === 'md',
-            'px-4 py-2 text-base rounded-md': size === 'lg',
-            'px-6 py-3 text-base rounded-md': size === 'xl',
+            'text-sm': size === 'sm',
+            'text-base': size === 'base',
+            'text-lg': size === 'lg',
+            'justify-center w-full px-1.5 py-2': full,
           },
           colorClasses[color],
           {

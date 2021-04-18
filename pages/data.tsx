@@ -152,7 +152,7 @@ const DataPage = () => {
           <div className="py-4 px-6 flex flex-col justify-center items-center">
             <Button
               className="w-full justify-center text-xl font-semibold space-x-4"
-              size="xl"
+              size="lg"
               onClick={() =>
                 setModalFlags((prev) => ({ ...prev, upload: true }))
               }
@@ -250,7 +250,7 @@ const DataPage = () => {
           <div className="py-4 px-6">
             <Button
               className="w-full justify-center text-xl font-semibold space-x-4"
-              size="xl"
+              size="lg"
               disabled={dataset === null || loading.save}
               onClick={() => {
                 if (dataset === null)
@@ -279,14 +279,14 @@ const DataPage = () => {
         }
         onConfirm={() => {}}
       />
-      <Modal
+      {/* <Modal
         show={modalFlags.success}
-        close={() => setModalFlags((prev) => ({ ...prev, success: false }))}
         title="Dataset successfully saved!"
         content="You can now select learning models."
         actionButton={{
           label: 'Go to Select Models',
           onClick: () => {
+            setModalFlags((prev) => ({ ...prev, success: false }))
             router.push('/models');
           },
         }}
@@ -294,14 +294,13 @@ const DataPage = () => {
       <Modal
         variant="alert"
         show={modalFlags.alert}
-        close={() => closeAlert()}
         title={alertInfo.title}
         content={alertInfo.content}
         actionButton={{
           label: 'OK',
           onClick: () => closeAlert(),
         }}
-      />
+      /> */}
     </>
   );
 };

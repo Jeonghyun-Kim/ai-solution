@@ -70,11 +70,11 @@ const DatasetUploadPage = () => {
               <h1 className="text-xl font-semibold">Upload Data</h1>
               <Select
                 className="w-32"
-                items={selectItems}
-                currentItem={
-                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  selectItems.find(({ value }) => value === currentSort)!
-                }
+                items={selectItems.map((item, idx) => ({
+                  ...item,
+                  key: `selectItem-${idx}`,
+                }))}
+                selectedValue={currentSort}
                 onSelect={(item) => setCurrentSort(item.value as never)}
               />
             </div>
@@ -82,8 +82,11 @@ const DatasetUploadPage = () => {
               <Select
                 className="w-full"
                 label="Task"
-                items={selectTastItems}
-                currentItem={selectTastItems[0]}
+                items={selectTastItems.map((item, idx) => ({
+                  ...item,
+                  key: `task-${idx}`,
+                }))}
+                selectedValue={selectTastItems[0].value}
                 onSelect={() => {}}
               />
             </div>

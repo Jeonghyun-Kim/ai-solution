@@ -61,11 +61,11 @@ const ModelUploadPage = () => {
               <h1 className="text-xl font-semibold">Upload Model</h1>
               <Select
                 className="w-32"
-                items={selectItems}
-                currentItem={
-                  // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-                  selectItems.find(({ value }) => value === currentSort)!
-                }
+                items={selectItems.map((item, idx) => ({
+                  ...item,
+                  key: `selectItem-${idx}`,
+                }))}
+                selectedValue={currentSort}
                 onSelect={(item) => setCurrentSort(item.value as never)}
               />
             </div>
